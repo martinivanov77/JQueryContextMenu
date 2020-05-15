@@ -48,14 +48,17 @@
                 on_select: function (e) {
                     if (e.id !== 'MenuItem1') {
                         alert("You clicked on a menu item!\n\nThe item's action is: " + e.action + "\nThe item's id is: " + e.id);
+                    } else {
+                        
+                            alert('This is a click event!');
+                        
                     }
                     return false;
                 }
             });
         });
-        $('#MenuItem1').click(function () {
-            alert('This is a click event!');
-        });
+
     </script>
 </body>
+
 </html>
