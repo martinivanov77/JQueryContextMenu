@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>jQuery Context Menu Demo</title>
+    <link href="css/jquery-menu.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+    <h1>jQuery Context Menu Demo</h1>
+    <div class="callback1">Right Click Me to test the Context Menu Plugin</div>
+    <div class="container">
+        <div id="callbackmenu">
+            <ul>
+                <li id="MenuItem1"><a href="#Item1">Click me! hahaha</a></li>
+                <li class="disabled" id="MenuItem2"><a href="#Item2">This is currently disabled</a></li>
+                <li id="MenuItem3"><a href="#Item3">Parent Item</a>
+                    <ul>
+                        <li id="MenuItem3.1"><a href="#Item3.1">Child 1</a></li>
+                        <li id="MenuItem3.2"><a href="#Item3.2">Child 2</a></li>
+                        <li id="MenuItem3.3"><a href="#Item3.3">Child 3</a>
+                            <ul>
+                                <li id="MenuItem3.3.1"><a href="#Item3.3.1">Child 1</a></li>
+                                <li id="MenuItem3.3.2"><a href="#Item3.3.2">Child 2</a></li>
+                                <li id="MenuItem3.3.3"><a href="#Item3.3.3">Child 3</a></li>
+                                <li id="MenuItem3.3.4"><a href="#Item3.3.4">Child 4</a></li>
+                            </ul>
+                        </li>
+                        <li id="MenuItem3.4"><a href="#Item3.4">Child 4</a></li>
+                    </ul>
+                </li>
+                <li id="MenuItem4" class="separator"><a href="#Item4">Another Menu Item</a></li>
+                <li id="MenuItem5" class="separator"><a href="#Item5">We can add some more !</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <!-- A jQuery plugin that makes mouse hovers smoother depending on the user's intent -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.hoverintent/1.8.1/jquery.hoverIntent.min.js"></script>
+    <script src="js/jquery-menu.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.callback1').catMenu({
+                menu: 'callbackmenu',
+                on_select: function (e) {
+                    if (e.id !== 'MenuItem1') {
+                        alert("You clicked on a menu item!\n\nThe item's action is: " + e.action + "\nThe item's id is: " + e.id);
+                    }
+                    return false;
+                }
+            });
+        });
+        $('#MenuItem1').click(function () {
+            alert('This is a click event!');
+        });
+    </script>
+</body>
+</html>
