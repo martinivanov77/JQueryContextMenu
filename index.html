@@ -46,9 +46,9 @@
         $(document).ready(function () {
             $('.target').menu({
                 menu: 'callbackMenu',
-                on_select: function (e) {
-                    if (e.id !== 'MenuItem1') {
-                        alert("You clicked on a menu item!\n\nThe item's action is: " + e.action + "\nThe item's id is: " + e.id);
+                on_select: function (item) {
+                    if (item.id !== 'MenuItem1') {
+                        alert("You clicked on a menu item!\n\nThe item's action is: " + item.action + "\nThe item's id is: " + item.id);
                     } else {
                         alert('This is a click event!');
                     }
