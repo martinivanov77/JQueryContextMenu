@@ -1,5 +1,5 @@
  
-.catMenu {
+.menu {
 	position: absolute;
 	z-index: 99999;
 	border: solid 1px #979797;
@@ -17,13 +17,13 @@
 	box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
 }
 
-.catMenu ul {
+.menu ul {
 	list-style: none!important;
 	padding: 0!important;
 	margin: 0!important;
 }
 
-.catMenu li {
+.menu li {
 	margin: 1px 2px;
 	padding: 1px;
 	color : #333;
@@ -32,7 +32,7 @@
 	list-style-type: none!important;
 }
 
-.catMenu a {
+.menu a {
 	text-decoration: none;
 	color: inherit;
 	display: block;
@@ -49,24 +49,24 @@
 	font-size: 14px;
 }
 
-.catMenu img {
+.menu img {
 	float: left;
 	margin-top: 2px;
 	margin-left: 6px;
 }
 
-.catMenu li.separator a {
+.menu li.separator a {
 	border-top: 1px solid #e3e3e3;
 	margin-top: -4px;
 	padding-top: 5px;
 }
 
-.catMenu li.separator,
-.catMenu li.separator.hover {
+.menu li.separator,
+.menu li.separator.hover {
 	margin-top: 5px;
 }
 
-.catMenu li.hover {
+.menu li.hover {
 	background-color: #e2ecf5;
 	-moz-border-radius: 2px;
 	-webkit-border-radius: 2px;
@@ -82,11 +82,10 @@
 	background: -o-linear-gradient(#e8f2fe, #daebf3);
 }
 
-.catMenu li.disabled {
+.menu li.disabled {
 	color: #999;
 }
-
-.catMenu li span {
+.menu li span {
 	border: solid black;
 	border-width: 0 2px 2px 0;
 	display: inline-block;
@@ -96,7 +95,7 @@
     -webkit-transform: rotate(-45deg);
 }
 
-.catMenu li ul {
+.menu li ul {
 	margin-top: -2px;
 	left: 180px;
 	position: absolute;
@@ -114,7 +113,7 @@
 	box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
 }
 
-.callback1 {
+.target {
 	margin: auto;
 	width: 50%;
 	border: 3px solid red;

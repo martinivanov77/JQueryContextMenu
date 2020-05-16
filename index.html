@@ -1,18 +1,19 @@
 <!doctype html>
 <html>
-
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1"> <!--Responsive to screens-->
     <title>jQuery Context Menu Demo</title>
     <link href="css/jquery-menu.css" rel="stylesheet" type="text/css">
+    <link href="https://bootswatch.com/darkly/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+    
 </head>
-
 <body>
     <h1>jQuery Context Menu Demo</h1>
-    <div class="callback1">Right Click Me to test the Context Menu Plugin</div>
+    <div class="target">Right Click Me to test the Context Menu Plugin</div>
     <div class="container">
-        <div id="callbackmenu">
+        <div id="callbackMenu" >
             <ul>
                 <li id="MenuItem1"><a href="#Item1">Click me!</a></li>
                 <li class="disabled" id="MenuItem2"><a href="#Item2">This is currently disabled</a></li>
@@ -43,22 +44,18 @@
     <script src="js/jquery-menu.js"></script>
     <script>
         $(document).ready(function () {
-            $('.callback1').catMenu({
-                menu: 'callbackmenu',
+            $('.target').menu({
+                menu: 'callbackMenu',
                 on_select: function (e) {
                     if (e.id !== 'MenuItem1') {
                         alert("You clicked on a menu item!\n\nThe item's action is: " + e.action + "\nThe item's id is: " + e.id);
                     } else {
-                        
-                            alert('This is a click event!');
-                        
+                        alert('This is a click event!');
                     }
                     return false;
-                }
+                },
             });
         });
-
     </script>
 </body>
-
 </html>

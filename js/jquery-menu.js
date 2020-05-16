@@ -1,8 +1,6 @@
-
-
 (function ($) {
 	var classes = {
-		popup_div: 'catMenu',
+		popup_div: 'menu',
 		separator: 'separator',
 		hover: 'hover',
 		disabled: 'disabled'
@@ -36,23 +34,23 @@
 				if ((typeof (options.menu) === 'object') && (options.menu.constructor.toString().match(/array/i) !== null || options.menu.length)) {
 					$menu = $('<div/>').append(build(options.menu));
 					$('body').append($menu);
-					$menu.data('catMenuDynamic', true);
+					$menu.data('menuDynamic', true);
 				} else {
 					$menu = $(document.getElementById(options.menu));
-					$menu.data('catMenuDynamic', false);
-					$menu.data('catMenuOriginal', $menu.clone());
+					$menu.data('menuDynamic', false);
+					$menu.data('menuOriginal', $menu.clone());
 				}
 				return this.each(function () {
 					var $this = $(this);
 					var event_namespace;
-					if (!$this.data('catMenu')) {
-						event_namespace = "catMenuContext-" + (new Date().getTime());
-						$this.data('catMenuEventNamespace', event_namespace).data('catMenuOptions', options).data('catMenu', $menu).data('catMenuEnable', true);
+					if (!$this.data('menu')) {
+						event_namespace = "menuContext-" + (new Date().getTime());
+						$this.data('menuEventNamespace', event_namespace).data('menuOptions', options).data('menu', $menu).data('menuEnable', true);
 						$menu.data('is_menu', options.is_menu);
-						if (!$menu.data('catMenuOwners')) {
-							$menu.data('catMenuOwners', []);
+						if (!$menu.data('menuOwners')) {
+							$menu.data('menuOwners', []);
 						}
-						$menu.data('catMenuOwners').push($this);
+						$menu.data('menuOwners').push($this);
 						menus.push($menu);
 						if (options.is_menu) {
 							methods.refresh.call($this);
@@ -64,7 +62,7 @@
 							});
 						}
 						$this.bind((((options.mouse_button === 'right') ? 'contextmenu' : 'click') + '.' + event_namespace), function (e) {
-							if (!$this.data('catMenuEnable')) {
+							if (!$this.data('menuEnable')) {
 								return true;
 							}
 							methods.show.apply($this, [e.pageX, e.pageY, options.show_animation]);
@@ -149,11 +147,11 @@
 				var opts;
 				return this.each(function () {
 					var $this = $(this);
-					var $menu = $this.data('catMenu');
+					var $menu = $this.data('menu');
 					var calculated_width;
 					var $width_test;
-					if ($this.data('catMenu').data('is_menu')) {
-						opts = $.extend($this.data('catMenuOptions'), options);
+					if ($this.data('menu').data('is_menu')) {
+						opts = $.extend($this.data('menuOptions'), options);
 						if (opts.hover_intent && !$.fn.hoverIntent) {
 							opts.hover_intent = false;
 						}
@@ -223,42 +221,42 @@
 			},
 			restore: function () {
 				return this.each(function () {
-					var $this = $(this), $menu = $this.data('catMenu');
-					$this.unbind('.' + $this.data('catMenuEventNamespace'));
-					$(window).unbind('keydown.' + $this.data('catMenuEventNamespace'));
-					$(document).unbind('click.' + $this.data('catMenuEventNamespace'));
-					$.each($menu.data('catMenuOwners'), function (index) {
+					var $this = $(this), $menu = $this.data('menu');
+					$this.unbind('.' + $this.data('menuEventNamespace'));
+					$(window).unbind('keydown.' + $this.data('menuEventNamespace'));
+					$(document).unbind('click.' + $this.data('menuEventNamespace'));
+					$.each($menu.data('menuOwners'), function (index) {
 						if ($this[0] === this) {
-							$menu.data('catMenuOwners').splice(index, 1);
+							$menu.data('menuOwners').splice(index, 1);
 						}
 					});
-					if ($menu.data('catMenuOwners').length < 1) {
+					if ($menu.data('menuOwners').length < 1) {
 						$.each(menus, function (index) {
 							if ($menu[0] === this) {
 								menus.splice(index, 1);
 							}
 						});
-						if ($menu.data('catMenuDynamic')) {
+						if ($menu.data('menuDynamic')) {
 							$menu.remove();
 						} else {
 							$menu.removeClass(classes.popup_div);
-							$menu.replaceWith($menu.data('catMenuOriginal'));
+							$menu.replaceWith($menu.data('menuOriginal'));
 						}
 					}
-					$this.removeData('catMenuEventNamespace');
-					$this.removeData('catMenu');
-					$this.removeData('catMenuOptions');
-					$this.removeData('catMenuEnable');
+					$this.removeData('menuEventNamespace');
+					$this.removeData('menu');
+					$this.removeData('menuOptions');
+					$this.removeData('menuEnable');
 				});
 			},
 			show: function (x, y) {
 				if (!x || !y) {
 					return false;
 				}
-				var $menu = $(this).first().data('catMenu');
+				var $menu = $(this).first().data('menu');
 				methods.hide.apply(this);
 				$menu.show();
-				$menu.data('catMenu', $(this));
+				$menu.data('menu', $(this));
 				$menu.offset(force_viewport({
 					top: y,
 					left: x
@@ -269,9 +267,9 @@
 				$.each(menus, function () {
 					$('.' + classes.hover, this).removeClass(classes.hover);
 					$('ul:first ul', this).hide();
-					if ($(this).data('catMenu')) {
-						$(this).data('catMenu').data('catMenuOptions').on_hide.call($(this).data('catMenu'));
-						$(this).removeData('catMenu');
+					if ($(this).data('menu')) {
+						$(this).data('menu').data('menuOptions').on_hide.call($(this).data('menu'));
+						$(this).removeData('menu');
 					}
 					$(this).hide();
 				});
@@ -279,27 +277,27 @@
 			},
 			disable: function (item) {
 				if (item) {
-					var $menu = $(this).data('catMenu');
+					var $menu = $(this).data('menu');
 					if (item.charAt(0) === '#') {
 						$('li' + item.replace(/ /g, '_'), $menu).addClass(classes.disabled);
 					} else {
 						$('a[href="' + item + '"]', $menu).parent().addClass(classes.disabled);
 					}
 				} else {
-					$(this).data('catMenuEnable', false);
+					$(this).data('menuEnable', false);
 				}
 				return this;
 			},
 			enable: function (item) {
 				if (item) {
-					var $menu = $(this).data('catMenu');
+					var $menu = $(this).data('menu');
 					if (item.charAt(0) === '#') {
 						$('li' + item.replace(/ /g, '_'), $menu).removeClass(classes.disabled);
 					} else {
 						$('a[href="' + item + '"]', $menu).parent().removeClass(classes.disabled);
 					}
 				} else {
-					$(this).data('catMenuEnable', true);
+					$(this).data('menuEnable', true);
 					$('li', this).each(function () {
 						$(this).removeClass(classes.disabled);
 					});
@@ -350,7 +348,7 @@
 			}
 			return ul;
 		};
-	$.fn.catMenu = function (method) {
+	$.fn.menu = function (method) {
 		if (methods[method]) {
 			return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
 		} else if (typeof method === 'object' || !method) {
